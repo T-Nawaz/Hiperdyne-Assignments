@@ -2,6 +2,7 @@ from xml.dom import minidom
 import re
 import nltk
 from nltk.corpus import stopwords
+import numpy as np
 
 custom_stops = []
 with open('stopwords.txt') as file:
@@ -41,7 +42,7 @@ def tokenize(data_set, topic_list, MAX_ROWS):
             string = re.sub('|\n|\t|\?', '', string)
             string = re.sub('--|/', ' ', string)
             string = re.sub(r'http\S+|www\S+|\'|\(|\)', '', string)
-            #handle empty string
+            # handle empty string
             if not string:
                 continue
 
@@ -50,22 +51,48 @@ def tokenize(data_set, topic_list, MAX_ROWS):
             tokenized_line = []
             for word in words:
                 if word != '' not in stops:
-                    if len(word) < 12 :
+                    if len(word) < 12:
                         if word not in custom_stops:
                             tokenized_line.append(word.strip(',').strip('.'))
 
-            tokenized_word_list.append([tokenized_line,topic])
+            tokenized_word_list.append([tokenized_line, topic])
             count += 1
 
     return tokenized_word_list
 
+
 def create_wordmap(tokenized_word_list):
+    """
+
+    :param tokenized_word_list: labeled list we got from tokenize method
+    :return: dictionary of words mapped to their position in the dictionary
+    """
     index = 0
     wordmap = {}
     for line in tokenized_word_list:
         for word in line[0]:
-            print(word)
+            # print(word)
             if word not in wordmap:
                 wordmap[word] = index
                 index += 1
     return wordmap
+
+
+def create_vector(tokenized_word_list,wordmap):
+    """
+
+    :param tokenized_word_list: labeled list we got from tokenize method
+    :param wordmap: dictionary of words mapped to their position in the dictionary
+    :return: labeled vector of each document/comment/line
+    """
+
+    vector_list = []
+    for line in tokenized_word_list:
+        vector = [0] * len(wordmap)
+        for word in line[0]:
+            if word in wordmap.keys():
+                vector[wordmap[word]] += 1
+        # print(vector)
+        vector = np.array(vector)
+        vector_list.append([vector,line[1]])
+    return vector_list
