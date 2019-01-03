@@ -59,3 +59,13 @@ def tokenize(data_set, topic_list, MAX_ROWS):
 
     return tokenized_word_list
 
+def create_wordmap(tokenized_word_list):
+    index = 0
+    wordmap = {}
+    for line in tokenized_word_list:
+        for word in line[0]:
+            print(word)
+            if word not in wordmap:
+                wordmap[word] = index
+                index += 1
+    return wordmap

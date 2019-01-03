@@ -1,3 +1,11 @@
++
+-
+=
+==
+>=
+<=
+e.g.
+e.g
 a
 about
 above
