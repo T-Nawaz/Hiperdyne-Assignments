@@ -63,7 +63,6 @@ def tokenize(data_set, topic_list, MAX_ROWS):
 
 def create_wordmap(tokenized_word_list):
     """
-
     :param tokenized_word_list: labeled list we got from tokenize method
     :return: dictionary of words mapped to their position in the dictionary
     """
@@ -80,7 +79,6 @@ def create_wordmap(tokenized_word_list):
 
 def create_vector(tokenized_word_list,wordmap):
     """
-
     :param tokenized_word_list: labeled list we got from tokenize method
     :param wordmap: dictionary of words mapped to their position in the dictionary
     :return: labeled vector of each document/comment/line
