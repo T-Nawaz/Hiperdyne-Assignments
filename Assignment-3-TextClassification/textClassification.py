@@ -19,29 +19,21 @@ def main():
     vector_training = xr.create_vector(tokenized_training_data, wordmap)
     vector_test = xr.create_vector(tokenized_test_data, wordmap)
 
-    # print(len(tokenized_training_data))
-    # print(vector_training[0][0])
-    # print(vector_test[0][0])
-    # print(len(wordmap))
-
-    # nei,t_c = knn.get_min_neighbors(training_data=vector_training, test_data= vector_test[0], K=5)
-    # res = knn.get_response(nei)
-
-    # print(vector_training[0][0])
-    # print(knn.hamming_distance([1, 0, 0], [0, 1, 0]))
-    # print(knn.hamming_distance([2, 0, 0], [0, 2, 0]))
-    # print(knn.hamming_distance([2, 0, 0], [2, 0, 0]))
-    # print(knn.hamming_distance([2, 0, 0], [4, 0, 0]))
-
-    for dst_measure in range(1,3):
+    for dst_measure in range(1,4):
         print()
         if dst_measure == 1:
             print("Euclidian distance")
         if dst_measure == 2:
             print("Hamming distance")
+        if dst_measure == 3:
+            print("Cosine Similarity")
+
         for K in range(1, 6, 2):
             print('For K = ', K)
             knn.knn(vector_training, vector_test, K, dst_measure)
+
+    # test = knn.idf(vector_test)
+    # print(test[0])
 
 main()
 
