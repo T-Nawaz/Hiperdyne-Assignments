@@ -2,6 +2,7 @@ from datetime import datetime
 startTime = datetime.now()
 import XMLReader as xr
 import KNN as knn
+import NaiveBayes as nb
 
 
 def main():
@@ -34,6 +35,8 @@ def main():
 
     # test = knn.idf(vector_test)
     # print(test[0])
+
+    nb.naive_bayes(vector_training,vector_test, topic_list, V=len(wordmap))
 
 main()
 
