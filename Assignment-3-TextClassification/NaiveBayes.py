@@ -55,25 +55,29 @@ def naive_bayes(vector_training,vector_test,topic_list,V):
             for class_index in range(num_topics):
                 # print('class-> ', topic_list[class_index])
                 total_word_in_class = np.sum(vector_class[class_index][0])
-                class_prior = (total_word_in_class / total_word_count)
+                class_prior = math.log(1 / num_topics)
 
                 # print('class_prior -> ',class_prior)
-                word_prob = 1.0
+                word_prob = 0.0
 
                 for word in range(len(vector_class[class_index][0])):
 
                     # print(test_doc[0][word])
-                    numerator = (test_doc[0][word] + alpha)
+                    if test_doc[0][word] > 0:
+                        numerator = vector_class[class_index][0][word] + alpha
+                    else:
+                        numerator = alpha
                     denominator = (total_word_in_class + alpha * V)
 
                     # print('numerator-> ', numerator, 'denominator-> ', denominator)
                     #
-                    word_prob = (word_prob * (numerator/denominator))
+                    word_prob = (word_prob + math.log(numerator/denominator))
                     # print(posterior)
 
                 # print('posterior -> ', posterior)
 
-                probability = class_prior * word_prob
+                probability = class_prior + word_prob
+
                 probability_list.append([probability])
 
             predictions.append([topic_list[probability_list.index(max(probability_list))] , test_doc[1]])
