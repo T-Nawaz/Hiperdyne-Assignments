@@ -21,6 +21,9 @@ def naive_bayes(vector_training, vector_test, topic_list, V):
     for x in range(num_topics):
         total_word_count = total_word_count + np.sum(vector_class[x])
 
+    total_word_in_class = np.array(vector_class).sum(axis=0)
+    print(total_word_in_class)
+
     alpha = 1
     # for alpha in np.arange(0.02, 1.02, 1 / 50):
     if alpha == 1:
@@ -33,7 +36,7 @@ def naive_bayes(vector_training, vector_test, topic_list, V):
 
             for class_index in range(num_topics):
                 # print('class-> ', topic_list[class_index])
-                total_word_in_class = np.sum(vector_class[class_index])
+                # total_word_in_class = np.sum(vector_class[class_index])
                 class_prior = math.log(1 / num_topics)
 
                 # print('class_prior -> ',class_prior)
@@ -46,7 +49,7 @@ def naive_bayes(vector_training, vector_test, topic_list, V):
                         numerator = vector_class[class_index][word] + alpha
                     else:
                         numerator = alpha
-                    denominator = (total_word_in_class + alpha * V)
+                    denominator = (total_word_in_class[word] + alpha * V)
 
                     # print('numerator-> ', numerator, 'denominator-> ', denominator)
                     #
