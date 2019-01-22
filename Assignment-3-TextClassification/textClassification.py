@@ -20,18 +20,18 @@ def main():
     vector_training = xr.create_vector(tokenized_training_data, wordmap)
     vector_test = xr.create_vector(tokenized_test_data, wordmap)
 
-    for dst_measure in range(1,4):
-        print()
-        if dst_measure == 1:
-            print("Euclidian distance")
-        if dst_measure == 2:
-            print("Hamming distance")
-        if dst_measure == 3:
-            print("Cosine Similarity")
-
-        for K in range(1, 6, 2):
-            print('For K = ', K)
-            knn.knn(vector_training, vector_test, K, dst_measure)
+    # for dst_measure in range(1,4):
+    #     print()
+    #     if dst_measure == 1:
+    #         print("Euclidian distance")
+    #     if dst_measure == 2:
+    #         print("Hamming distance")
+    #     if dst_measure == 3:
+    #         print("Cosine Similarity")
+    #
+    #     for K in range(1, 6, 2):
+    #         print('For K = ', K)
+    #         knn.knn(vector_training, vector_test, K, dst_measure)
 
     # test = knn.idf(vector_test)
     # print(test[0])
